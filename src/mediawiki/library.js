@@ -1,66 +1,189 @@
-var HTTPRequestBuffer = (function() {
-        function HTTPRequestBuffer()
+/******************************************************************************
+ *                      HTTP REQUEST BUFFERING
+ ******************************************************************************/
+var HTTPRequestBuffer = (function() 
+{
+        function HTTPBuffer(url, bytes, cooldown_ms)
         {
-                this.capacity = 2^10; /* User-configurable */
+                this.capacity = bytes; 
+                this.array = [];
+                this.read = 0;
+                this.write = 0;
+                this.url = url;
+                this.cooldown_ms = cooldown_ms;
+        }
+        HTTPBuffer.prototype.dispatch = function() {
+                /* While not empty */
+                while (!(this.read === this.write)) {
+                        /* Unshift */
+                        var item = array[this.read & (this.capacity - 1)];
+                        this.read++;
+                        /* Send */
+                        // sendBeacon(this.url, item);
+                }
+        };
+        HTTPBuffer.prototype.post = function(str) {
+                /* Push */
+                this.array[(this.write & (this.capacity - 1))] = item;
+                this.write++;
+                /* Schedule */
+                if ( !this.timer ) {
+                        this.timer = setTimeout( this.dispatch, this.cooldown_ms );
+                }
+        };
 
+        return HTTPBuffer;
+})();
+
+
+
+var HTTPRequestBuffer = (function() 
+{
+        var capacity;
+        var array = [];
+        var read = 0;
+        var write = 0;
+        var url;
+        var cooldown;
+
+        function dispatch() 
+        {
+                /* While not empty */
+                while (!(this.read === this.write)) {
+                        /* Unshift */
+                        var item = array[this.read & (this.capacity - 1)];
+                        this.read++;
+                        // sendBeacon(this.url, item);
+                }
+        }
+        function post(str) 
+        {
+                /* Push */
+                this.array[(this.write & (this.capacity - 1))] = str;
+                this.write++;
+
+                this.schedule();
+        }
+        function schedule() 
+        {
+                if ( this.timer ) {
+                        return;
+                }
+                this.timer = setTimeout( this.dispatch, this.cooldown_ms );
+        }
+
+        return Sender;
+})();
+
+
+
+
+
+
+var HTTPRequestBuffer = (function() 
+{
+        function HTTPBuffer(url, bytes, cooldown_ms)
+        {
+                this.capacity = bytes; 
+                this.array = [];
+                this.read = 0;
+                this.write = 0;
+
+                this.url = url;
+                this.cooldown_ms = cooldown_ms;
+        }
+        HTTPBuffer.prototype.push = function(item) {
+                this.array[(this.write & (this.capacity - 1))] = item;
+                this.write++;
+        };
+        HTTPBuffer.prototype.unshift = function() {
+                var item = array[this.read & (this.capacity - 1)];
+                this.read++;
+                return item;
+        };
+        HTTPBuffer.prototype.dispatch = function() {
+                while (!(this.read === this.write)) {
+                        var item = this.unshift();
+                        // sendBeacon(this.url, item);
+                }
+        };
+        HTTPBuffer.prototype.post = function(str) {
+                this.push(str); 
+                this.schedule();
+        };
+        HTTPBuffer.prototype.schedule = function() {
+                if ( this.timer ) {
+                        return;
+                }
+                this.timer = setTimeout( this.dispatch, this.cooldown_ms );
+        };
+
+        return Sender;
+})();
+
+
+
+
+
+var HTTPRequestBuffer = (function() 
+{
+        function Buffer(bytes)
+        {
+                this.capacity = bytes; 
                 this.array = [];
                 this.read = 0;
                 this.write = 0;
         }
-
-        HTTPRequestBuffer.prototype.push = function(url, data, immediate)
-        {
-                this.array[(this.write & (this.capacity - 1))] = [url, data];
+        Buffer.prototype.push = function(item) {
+                this.array[(this.write & (this.capacity - 1))] = item;
                 this.write++;
-        }
-
-        HTTPRequestBuffer.prototype.unshift = function()
-        {
+        };
+        Buffer.prototype.unshift = function() {
                 var item = array[this.read & (this.capacity - 1)];
                 this.read++;
                 return item;
-        }
+        };
 
-        HTTPRequestBuffer.prototype.dispatch = function() 
+        function Sender(config)
         {
-                while (!(this.read === this.write)) {
-                        var item = this.unshift();
-                        /* Do something with item */
+                this.buffer = new Buffer(config.buffer_size);
+                this.url = config.url;
+                this.cooldown_ms = config.cooldown_ms;
+                this.timer = null;
+        }
+        Sender.prototype.post = function(str) {
+                this.buffer.push(str); 
+                this.schedule();
+        };
+        Sender.prototype.schedule = function() {
+                if ( this.timer ) {
+                        return;
                 }
-        }
+                this.timer = setTimeout( this.flush, this.cooldown_ms );
+        };
+        Sender.prototype.flush = function() {
+                while (!(this.buffer.read === this.buffer.write)) {
+                        var item = this.buffer.unshift();
+                        // sendBeacon(this.url, item);
+                }
+        };
 
-        return HTTPRequestBuffer;
+        return Sender;
 })();
 
-var HTTPRequestScheduler = (function() {
+var B = new HTTPRequestBuffer({
+        "url": "example.com",
+        "buffer_size": 2**10,
+        "cooldown_ms": 2000
+});
 
-        var timer = null;
-        var cooldown = 2000;
 
-        var B = new HTTPRequestBuffer();
 
-	function schedule() 
-        {
-	        // Don't unconditionally re-create the timer as that may 
-                // post-pone execution indefinitely if different page 
-                // components send metrics less than 2s apart before the 
-                // user closes their window. Instead, only re-delay execution 
-                // if the queue is small.
-                //
-                // JDL: Ehh? This comment seems like it's misleading.
-                // Isn't the elseif just choosing not to wake up the
-                // dispatcher unless we've reached a certain batchsize? 
-                //
-                // JDL: OOH, it's talking about the FIRST conditional! 
-                // Well no kidding! How could you write 6 lines about this! 
-		if ( !timer ) {
-			timer = setTimeout( B.dispatch, cooldown );
-		} else if ( queue.length < batchSize ) {
-			clearTimeout( timer );
-			timer = setTimeout( B.dispatch, cooldown );
-		}
-	}
-})();
+/******************************************************************************
+ *                      EVENT STREAM MANAGER 
+ ******************************************************************************/
 
 var StreamManager = (function() { 
 })();
+
+
