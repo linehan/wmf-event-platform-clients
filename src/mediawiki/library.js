@@ -1,189 +1,78 @@
-/******************************************************************************
- *                      HTTP REQUEST BUFFERING
- ******************************************************************************/
-var HTTPRequestBuffer = (function() 
-{
-        function HTTPBuffer(url, bytes, cooldown_ms)
-        {
-                this.capacity = bytes; 
-                this.array = [];
-                this.read = 0;
-                this.write = 0;
-                this.url = url;
-                this.cooldown_ms = cooldown_ms;
-        }
-        HTTPBuffer.prototype.dispatch = function() {
-                /* While not empty */
-                while (!(this.read === this.write)) {
-                        /* Unshift */
-                        var item = array[this.read & (this.capacity - 1)];
-                        this.read++;
-                        /* Send */
-                        // sendBeacon(this.url, item);
-                }
-        };
-        HTTPBuffer.prototype.post = function(str) {
-                /* Push */
-                this.array[(this.write & (this.capacity - 1))] = item;
-                this.write++;
-                /* Schedule */
-                if ( !this.timer ) {
-                        this.timer = setTimeout( this.dispatch, this.cooldown_ms );
-                }
-        };
+var HTTPRequestBuffer = {};
+(function() {
+        var capacity    = BUFFER_SIZE;
+        var cooldown_ms = BUFFER_COOLDOWN_MS;
+        var timer       = null;
 
-        return HTTPBuffer;
+        var buffer = [];
+        var read   = 0;
+        var write  = 0;
+
+        function buffer_flush() 
+        {
+                while (!(read === write)) {
+                        var item = buffer[read++ & (capacity - 1)];
+                        sendBeacon(item[0], item[1]);
+                }
+        }
+
+        HTTPRequestBuffer.post = function(url, str) 
+        {
+                buffer[(write++ & (capacity - 1))] = [url, str];
+
+                if ( !timer ) {
+                        timer = setTimeout( buffer_flush, cooldown_ms );
+                }
+        };
+        HTTPRequestBuffer.pause = function() {
+                /* ... */
+        };
+        HTTPRequestBuffer.unpause = function() {
+                /* ... */
+        };
 })();
 
 
+var StreamManager = {};
+(function() {
 
-var HTTPRequestBuffer = (function() 
-{
-        var capacity;
-        var array = [];
-        var read = 0;
-        var write = 0;
-        var url;
-        var cooldown;
+        var execution_token = GET_EXECUTION_TOKEN();
 
-        function dispatch() 
+        var install_token   = GET_CLIENT_TOKEN();
+        var session_token   = GET_SESSION_TOKEN();
+        var page_token      = GET_STREAM_CONFIG();
+
+        function streamInSample(stream_name)
         {
-                /* While not empty */
-                while (!(this.read === this.write)) {
-                        /* Unshift */
-                        var item = array[this.read & (this.capacity - 1)];
-                        this.read++;
-                        // sendBeacon(this.url, item);
+                /* ... */
+        }
+
+        StreamManager.streamEvent = function(stream_name, data) { 
+                if (!streamInSample(stream_name)) {
+                        return -1;
                 }
-        }
-        function post(str) 
-        {
-                /* Push */
-                this.array[(this.write & (this.capacity - 1))] = str;
-                this.write++;
 
-                this.schedule();
-        }
-        function schedule() 
-        {
-                if ( this.timer ) {
-                        return;
-                }
-                this.timer = setTimeout( this.dispatch, this.cooldown_ms );
-        }
+                var e = data;
 
-        return Sender;
+                /* Stuff you add right now */
+                e.timestamp = new Date();
+
+                /* Stuff we manage */
+                e.client_token = client_token;
+                e.session_token = session_token;
+
+                /* Stuff from stream configuration */
+                e.name = config[stream_name].name;
+                e.schema_url = config[stream_name].schema_url;
+
+                return HTTPRequestBuffer.post(config[stream_name].url, e);
+        };
 })();
 
 
-
-
-
-
-var HTTPRequestBuffer = (function() 
-{
-        function HTTPBuffer(url, bytes, cooldown_ms)
-        {
-                this.capacity = bytes; 
-                this.array = [];
-                this.read = 0;
-                this.write = 0;
-
-                this.url = url;
-                this.cooldown_ms = cooldown_ms;
-        }
-        HTTPBuffer.prototype.push = function(item) {
-                this.array[(this.write & (this.capacity - 1))] = item;
-                this.write++;
-        };
-        HTTPBuffer.prototype.unshift = function() {
-                var item = array[this.read & (this.capacity - 1)];
-                this.read++;
-                return item;
-        };
-        HTTPBuffer.prototype.dispatch = function() {
-                while (!(this.read === this.write)) {
-                        var item = this.unshift();
-                        // sendBeacon(this.url, item);
-                }
-        };
-        HTTPBuffer.prototype.post = function(str) {
-                this.push(str); 
-                this.schedule();
-        };
-        HTTPBuffer.prototype.schedule = function() {
-                if ( this.timer ) {
-                        return;
-                }
-                this.timer = setTimeout( this.dispatch, this.cooldown_ms );
-        };
-
-        return Sender;
-})();
-
-
-
-
-
-var HTTPRequestBuffer = (function() 
-{
-        function Buffer(bytes)
-        {
-                this.capacity = bytes; 
-                this.array = [];
-                this.read = 0;
-                this.write = 0;
-        }
-        Buffer.prototype.push = function(item) {
-                this.array[(this.write & (this.capacity - 1))] = item;
-                this.write++;
-        };
-        Buffer.prototype.unshift = function() {
-                var item = array[this.read & (this.capacity - 1)];
-                this.read++;
-                return item;
-        };
-
-        function Sender(config)
-        {
-                this.buffer = new Buffer(config.buffer_size);
-                this.url = config.url;
-                this.cooldown_ms = config.cooldown_ms;
-                this.timer = null;
-        }
-        Sender.prototype.post = function(str) {
-                this.buffer.push(str); 
-                this.schedule();
-        };
-        Sender.prototype.schedule = function() {
-                if ( this.timer ) {
-                        return;
-                }
-                this.timer = setTimeout( this.flush, this.cooldown_ms );
-        };
-        Sender.prototype.flush = function() {
-                while (!(this.buffer.read === this.buffer.write)) {
-                        var item = this.buffer.unshift();
-                        // sendBeacon(this.url, item);
-                }
-        };
-
-        return Sender;
-})();
-
-var B = new HTTPRequestBuffer({
-        "url": "example.com",
-        "buffer_size": 2**10,
-        "cooldown_ms": 2000
+/* 
+ * [JDL] In the actual MW code it will be coupled like this
+ */
+mw.trackSubscribe("event.", function() {
+        StreamManager.post(stream_name, data);        
 });
-
-
-
-/******************************************************************************
- *                      EVENT STREAM MANAGER 
- ******************************************************************************/
-
-var StreamManager = (function() { 
-})();
-
-
