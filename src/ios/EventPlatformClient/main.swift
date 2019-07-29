@@ -1,11 +1,13 @@
 import Foundation
 
+print("start")
+
 let mySM = StreamManager()
 print("Stream Manager: \(mySM)")
 
-var myRB = HTTPRequestBuffer(capacity: 4, cooldown_ms: 60)
+var myRB = HTTPRequestBuffer(capacity: 5, cooldown_ms: 300)
 
-let myEvents: [String] = [
+var myEvents: [String] = [
     "{ \"banner_id\": \"A\", \"action\": \"impression\" }",
     "{ \"banner_id\": \"B\", \"action\": \"impression\" }",
     "{ \"banner_id\": \"B\", \"action\": \"click\" }",
@@ -19,9 +21,19 @@ let myEvents: [String] = [
     "{ \"banner_id\": \"G\", \"action\": \"click\" }"
 ]
 
-for myEvent in myEvents {
-    print("posting event to request buffer")
+let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+    print("scheduled timer triggers event posting")
+
+    let myEvent = myEvents.removeFirst()
     myRB.post("https://en.wikipedia.org/api.php", myEvent)
+
+    if myEvents.count == 0 {
+        print("ran out of events to post")
+        timer.invalidate()
+        myRB.pause()
+    }
 }
 
-print("Requests remaining in buffer: \(myRB.buffer)")
+RunLoop.current.run()
+
+print("end")
