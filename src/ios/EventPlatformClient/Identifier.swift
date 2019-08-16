@@ -11,8 +11,11 @@ struct Identifier {
     public mutating func step() -> Void {
         self.sequence_id += 1
     }
-    public func asHex() -> String {
-        return String(self.asInteger(), radix: 16, uppercase: false)
+    public func asSeparatedString(sep: String = "·") -> String {
+        var id: String = String(self.session_id)
+        id += sep + String(format: "%05i", self.pageview_id)
+        id += sep + String(format: "%05i", self.sequence_id)
+        return id
     }
     public func asString() -> String {
         var id: String = String(self.session_id)
@@ -20,14 +23,11 @@ struct Identifier {
         id += String(format: "%05i", self.sequence_id)
         return id
     }
-    public func asSeparatedString(sep: String = "·") -> String {
-        var id: String = String(self.session_id)
-        id += sep + String(format: "%05i", self.pageview_id)
-        id += sep + String(format: "%05i", self.sequence_id)
-        return id
-    }
     public func asInteger() -> UInt64 {
         let uint64: UInt64 = UInt64(self.asString())!
         return uint64
+    }
+    public func asHex() -> String {
+        return String(self.asInteger(), radix: 16, uppercase: false)
     }
 }
