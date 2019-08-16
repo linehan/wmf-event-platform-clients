@@ -13,10 +13,10 @@ var myWorkflowIDs: [Identifier] = [
 print("workflow IDs, printed with dot-separator to distinguish components: session·pageview·sequence")
 for var myWorkflowID in myWorkflowIDs {
     print("64-bit integer workflow ID: \(myWorkflowID.asSeparatedString())")
-    try print("        hex string version: \(myWorkflowID.asHex())")
+    print("        hex string version: \(myWorkflowID.asHex())")
     myWorkflowID.step()
     print("       after taking a step: \(myWorkflowID.asSeparatedString())")
-    try print("        hex string version: \(myWorkflowID.asHex())")
+    print("        hex string version: \(myWorkflowID.asHex())")
 }
 
 /* var myRB = HTTPRequestBuffer(capacity: 5, cooldown_ms: 300)
