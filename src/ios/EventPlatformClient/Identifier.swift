@@ -11,16 +11,10 @@ struct Identifier {
     public mutating func step() -> Void {
         self.sequence_id += 1
     }
-    public func asSeparatedString(sep: String = "·") -> String {
+    public func asString(separator: String = "") -> String {
         var id: String = String(self.session_id)
-        id += sep + String(format: "%05i", self.pageview_id)
-        id += sep + String(format: "%05i", self.sequence_id)
-        return id
-    }
-    public func asString() -> String {
-        var id: String = String(self.session_id)
-        id += String(format: "%05i", self.pageview_id)
-        id += String(format: "%05i", self.sequence_id)
+        id += separator + String(format: "%05i", self.pageview_id)
+        id += separator + String(format: "%05i", self.sequence_id)
         return id
     }
     public func asInteger() -> UInt64 {
