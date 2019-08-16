@@ -3,32 +3,26 @@
 Output of `EventPlatformClient` (executable built from [main.swift](EventPlatformClient/main.swift))
 
 ```
-start
-Stream Manager: StreamManager(config: ["SessionLength": EventPlatformClient.StreamConfig(fields: ["field2": 2, "field1": "A", "field3": 3.0])], client_token: "clientID", session_token: "sessionID", stream_token: ["stream name": "token"], stream_token_refresh_count: ["stream name": 0])
-initializing a request buffer with capacity of 5 requests and cooldown of 300ms
-scheduled timer triggers event posting
-scheduled timer triggers event posting
-flushing unpaused buffer holding 2 events
-sending '{ "banner_id": "A", "action": "impression" }' to endpoint at https://en.wikipedia.org/api.php
-sending '{ "banner_id": "B", "action": "impression" }' to endpoint at https://en.wikipedia.org/api.php
-scheduled timer triggers event posting
-scheduled timer triggers event posting
-scheduled timer triggers event posting
-flushing unpaused buffer holding 3 events
-sending '{ "banner_id": "B", "action": "click" }' to endpoint at https://en.wikipedia.org/api.php
-sending '{ "banner_id": "C", "action": "impression" }' to endpoint at https://en.wikipedia.org/api.php
-sending '{ "banner_id": "C", "action": "click" }' to endpoint at https://en.wikipedia.org/api.php
-scheduled timer triggers event posting
-scheduled timer triggers event posting
-scheduled timer triggers event posting
-flushing unpaused buffer holding 3 events
-sending '{ "banner_id": "D", "action": "impression" }' to endpoint at https://en.wikipedia.org/api.php
-sending '{ "banner_id": "D", "action": "click" }' to endpoint at https://en.wikipedia.org/api.php
-sending '{ "banner_id": "E", "action": "impression" }' to endpoint at https://en.wikipedia.org/api.php
-scheduled timer triggers event posting
-scheduled timer triggers event posting
-scheduled timer triggers event posting
-ran out of events to post
-pausing request buffer
-Program ended with exit code: 9
+workflow IDs, printed with dot-separator to distinguish components: session·pageview·sequence
+64-bit integer workflow ID: 1565973823·42109·00000
+hex string version: d95290f485be5820
+after taking a step: 1565973823·42109·00001
+hex string version: d95290f485be5821
+64-bit integer workflow ID: 1565973823·57570·00000
+hex string version: d95290f4e1e5f540
+after taking a step: 1565973823·57570·00001
+hex string version: d95290f4e1e5f541
+64-bit integer workflow ID: 1565973823·27853·00000
+hex string version: d95290f430c56a20
+after taking a step: 1565973823·27853·00001
+hex string version: d95290f430c56a21
+64-bit integer workflow ID: 1565973823·28844·00000
+hex string version: d95290f436ad8f80
+after taking a step: 1565973823·28844·00001
+hex string version: d95290f436ad8f81
+64-bit integer workflow ID: 1565973823·07147·00000
+hex string version: d95290f3b55a90e0
+after taking a step: 1565973823·07147·00001
+hex string version: d95290f3b55a90e1
+Program ended with exit code: 0
 ```

@@ -1,11 +1,25 @@
 import Foundation
 
-print("start")
-
 let mySM = StreamManager()
-print("Stream Manager: \(mySM)")
+// print(mySM)
 
-var myRB = HTTPRequestBuffer(capacity: 5, cooldown_ms: 300)
+var myWorkflowIDs: [Identifier] = [
+    Identifier(),
+    Identifier(),
+    Identifier(),
+    Identifier(),
+    Identifier()
+]
+print("workflow IDs, printed with dot-separator to distinguish components: session·pageview·sequence")
+for var myWorkflowID in myWorkflowIDs {
+    print("64-bit integer workflow ID: \(myWorkflowID.asSeparatedString())")
+    try print("        hex string version: \(myWorkflowID.asHex())")
+    myWorkflowID.step()
+    print("       after taking a step: \(myWorkflowID.asSeparatedString())")
+    try print("        hex string version: \(myWorkflowID.asHex())")
+}
+
+/* var myRB = HTTPRequestBuffer(capacity: 5, cooldown_ms: 300)
 
 var myEvents: [String] = [
     "{ \"banner_id\": \"A\", \"action\": \"impression\" }",
@@ -29,11 +43,10 @@ let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer i
 
     if myEvents.count == 0 {
         print("ran out of events to post")
-        timer.invalidate()
         myRB.pause()
+        timer.invalidate()
     }
 }
 
-RunLoop.current.run()
-
-print("end")
+// RunLoop.current.add(timer, forMode: RunLoop.Mode.common)
+// RunLoop.current.run() */
