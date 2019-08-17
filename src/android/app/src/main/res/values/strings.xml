@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Event Platform Client</string>
+    <string name="step_btn">Step</string>
+    <string name="regen_btn">Regenerate</string>
+</resources>
