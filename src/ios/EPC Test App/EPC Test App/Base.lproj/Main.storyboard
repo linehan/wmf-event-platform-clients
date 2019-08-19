@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="EPC_Test_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="separated integer ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIF-ZF-13c" userLabel="Separated Integer ID">
+                                <rect key="frame" x="125" y="94" width="164.5" height="21.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hexadecimal string ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CXP-cW-D1S" userLabel="Hexadecimal String ID">
+                                <rect key="frame" x="120" y="140.5" width="174" height="21.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mYe-Sb-ehn" userLabel="Step Button">
+                                <rect key="frame" x="183" y="212" width="48" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Step"/>
+                                <connections>
+                                    <action selector="stepUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rt5-ji-Xbg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kV-ew-jh0" userLabel="Regenerate Button">
+                                <rect key="frame" x="147.5" y="278" width="119" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Regenerate"/>
+                                <connections>
+                                    <action selector="regenIdentifier:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IoU-ox-tRm"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="mYe-Sb-ehn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1ms-zS-67K"/>
+                            <constraint firstItem="4kV-ew-jh0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4ur-dP-TxX"/>
+                            <constraint firstItem="CXP-cW-D1S" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EKU-S7-qWw"/>
+                            <constraint firstItem="4kV-ew-jh0" firstAttribute="top" secondItem="mYe-Sb-ehn" secondAttribute="bottom" constant="25" id="MDP-9B-fcU"/>
+                            <constraint firstItem="qIF-ZF-13c" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="T0A-j1-pcG"/>
+                            <constraint firstItem="CXP-cW-D1S" firstAttribute="top" secondItem="qIF-ZF-13c" secondAttribute="bottom" constant="25" id="U4w-f6-tjp"/>
+                            <constraint firstItem="mYe-Sb-ehn" firstAttribute="top" secondItem="CXP-cW-D1S" secondAttribute="bottom" constant="50" id="c3T-Nl-yox"/>
+                            <constraint firstItem="qIF-ZF-13c" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hEc-Cp-OQ5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="hexIdentifierLabel" destination="CXP-cW-D1S" id="hN0-od-2vn"/>
+                        <outlet property="stringIdentifierLabel" destination="qIF-ZF-13c" id="eM9-Rm-sNK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="137.94642857142856"/>
+        </scene>
+    </scenes>
+</document>
