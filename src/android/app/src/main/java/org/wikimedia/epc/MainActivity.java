@@ -23,14 +23,12 @@ public class MainActivity extends AppCompatActivity {
         t2.setText(id.asHex());
     }
     /** Called when the user taps the Step button */
-    public void step(View view) {
+    public void stepUp(View view) {
         id.step();
         this.updateIdentifierTextView();
-        // increment sequence component of the identifier (and update the text view?)
     }
     /** Called when the user taps the Regenerate button */
-    public void regen(View view) {
-        // regenerate ID (and update identifierTextView?)
+    public void regenIdentifier(View view) {
         id = new Identifier();
         this.updateIdentifierTextView();
     }
