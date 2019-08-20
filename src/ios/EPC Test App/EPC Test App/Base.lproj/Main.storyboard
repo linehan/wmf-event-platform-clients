@@ -18,50 +18,96 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="separated integer ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIF-ZF-13c" userLabel="Separated Integer ID">
-                                <rect key="frame" x="125" y="94" width="164.5" height="21.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="separated integer ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIF-ZF-13c" userLabel="Separated Integer ID">
+                                <rect key="frame" x="50" y="184" width="313" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hexadecimal string ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CXP-cW-D1S" userLabel="Hexadecimal String ID">
-                                <rect key="frame" x="120" y="140.5" width="174" height="21.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mYe-Sb-ehn" userLabel="Step Button">
-                                <rect key="frame" x="183" y="212" width="48" height="41"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mYe-Sb-ehn" userLabel="Step Button">
+                                <rect key="frame" x="50" y="454" width="48" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Step"/>
                                 <connections>
                                     <action selector="stepUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rt5-ji-Xbg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kV-ew-jh0" userLabel="Regenerate Button">
-                                <rect key="frame" x="147.5" y="278" width="119" height="41"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kV-ew-jh0" userLabel="Regenerate Button">
+                                <rect key="frame" x="50" y="513" width="119" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Regenerate"/>
                                 <connections>
                                     <action selector="regenIdentifier:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IoU-ox-tRm"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="64-bit integer ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qW5-DO-WkH">
+                                <rect key="frame" x="50" y="154" width="144" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="16" translatesAutoresizingMaskIntoConstraints="NO" id="rlY-bM-zWM">
+                                <rect key="frame" x="50" y="103" width="94" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="changeNumberOfBucketsWithSender:" destination="BYZ-38-t0r" eventType="valueChanged" id="aIA-Fn-iTc"/>
+                                </connections>
+                            </stepper>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1 bucket" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fQP-Cg-rLn">
+                                <rect key="frame" x="163" y="103" width="144" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="session ID · pageview ID · sequence ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oUP-ue-T7M">
+                                <rect key="frame" x="50" y="214" width="264" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="hexadecimal string ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CXP-cW-D1S" userLabel="Hexadecimal String ID">
+                                <rect key="frame" x="50" y="289" width="313" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="bucket" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vcU-sq-PFu" userLabel="Hexadecimal String ID">
+                                <rect key="frame" x="50" y="370" width="313" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hexadecimal ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nid-ji-3e3">
+                                <rect key="frame" x="50" y="259" width="135" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pageview ID-based bucketing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XZ1-ao-Mho">
+                                <rect key="frame" x="50" y="340" width="257" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="mYe-Sb-ehn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1ms-zS-67K"/>
-                            <constraint firstItem="4kV-ew-jh0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4ur-dP-TxX"/>
-                            <constraint firstItem="CXP-cW-D1S" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EKU-S7-qWw"/>
-                            <constraint firstItem="4kV-ew-jh0" firstAttribute="top" secondItem="mYe-Sb-ehn" secondAttribute="bottom" constant="25" id="MDP-9B-fcU"/>
-                            <constraint firstItem="qIF-ZF-13c" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="T0A-j1-pcG"/>
-                            <constraint firstItem="CXP-cW-D1S" firstAttribute="top" secondItem="qIF-ZF-13c" secondAttribute="bottom" constant="25" id="U4w-f6-tjp"/>
-                            <constraint firstItem="mYe-Sb-ehn" firstAttribute="top" secondItem="CXP-cW-D1S" secondAttribute="bottom" constant="50" id="c3T-Nl-yox"/>
-                            <constraint firstItem="qIF-ZF-13c" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hEc-Cp-OQ5"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="bucketLabel" destination="vcU-sq-PFu" id="8sZ-Yz-okP"/>
                         <outlet property="hexIdentifierLabel" destination="CXP-cW-D1S" id="hN0-od-2vn"/>
+                        <outlet property="numberOfBucketsLabel" destination="fQP-Cg-rLn" id="c2l-0q-pt5"/>
+                        <outlet property="numberOfBucketsStepper" destination="rlY-bM-zWM" id="DVj-cZ-uen"/>
                         <outlet property="stringIdentifierLabel" destination="qIF-ZF-13c" id="eM9-Rm-sNK"/>
                     </connections>
                 </viewController>

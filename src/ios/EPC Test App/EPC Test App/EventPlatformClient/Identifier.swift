@@ -24,4 +24,18 @@ struct Identifier {
     public func asHex() -> String {
         return String(self.asInteger(), radix: 16, uppercase: false)
     }
+    public func inBucket(buckets: Int) -> Int {
+        if buckets > 1 {
+            let segment_length:Double = pow(2, 16) / Double(buckets)
+            // determine which interval pageview_id falls into:
+            for i in 1...buckets {
+                if Double(self.pageview_id) < (segment_length * Double(i)) {
+                    return i
+                }
+            }
+            return -1 // should never be called in practice
+        } else {
+            return buckets
+        }
+    }
 }

@@ -13,6 +13,9 @@ class ViewController: UIViewController {
     //MARK: Properties
     @IBOutlet weak var stringIdentifierLabel: UILabel!
     @IBOutlet weak var hexIdentifierLabel: UILabel!
+    @IBOutlet weak var numberOfBucketsLabel: UILabel!
+    @IBOutlet weak var bucketLabel: UILabel!
+    @IBOutlet weak var numberOfBucketsStepper: UIStepper!
 
     var id: Identifier = Identifier()
     
@@ -25,6 +28,7 @@ class ViewController: UIViewController {
     func updateIdentifierLabels() {
         stringIdentifierLabel.text = id.asString(separator: "·")
         hexIdentifierLabel.text = id.asHex()
+        bucketLabel.text = String(id.inBucket(buckets: Int(numberOfBucketsStepper.value)))
     }
 
     //MARK: Actions
@@ -34,6 +38,15 @@ class ViewController: UIViewController {
     }
     @IBAction func regenIdentifier(_ sender: Any) {
         id = Identifier()
+        updateIdentifierLabels()
+    }
+    @IBAction func changeNumberOfBuckets(sender: UIStepper) {
+        let n_buckets: Int = Int(sender.value)
+        var str_buckets: String = "\(n_buckets) bucket"
+        if (n_buckets > 1) {
+            str_buckets += "s"
+        }
+        numberOfBucketsLabel.text = str_buckets
         updateIdentifierLabels()
     }
 
