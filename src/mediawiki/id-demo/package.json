@@ -1,0 +1,14 @@
+{
+  "name": "id-demo",
+  "version": "1.0.0",
+  "description": "Demo of ID generation based on EPC specification",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "oojs-ui": "^0.33.4"
+  }
+}

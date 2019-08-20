@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>EPC-ID Demo OOUI</title>
+		<meta name="description" content="A demo EPC=ID generator app made with OOUI">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- jQuery -->
+		<script src="node_modules/jquery/dist/jquery.min.js"></script>
+		<!-- OOjs -->
+		<script src="node_modules/oojs/dist/oojs.jquery.min.js"></script>
+		<!-- OOUI -->
+		<script src="node_modules/oojs-ui/dist/oojs-ui.min.js"></script>
+		<!-- OOUI theme -->
+		<script src="node_modules/oojs-ui/dist/oojs-ui-wikimediaui.min.js"></script>
+		<link rel="stylesheet" href="node_modules/oojs-ui/dist/oojs-ui-wikimediaui.min.css">
+
+		<!-- Demo app custom -->
+		<link rel="stylesheet" href="demo.css">
+		<script src="assets/identifier.js"></script>
+		<script src="assets/init.js"></script>
+	</head>
+	<body>
+		<h1>Event Platform Client - ID demo</h1>
+		<div id="bucketing-settings"></div>
+		<div id="identifier-info">
+			<h2>64-bit integer ID:</h2> <p id="string-identifier"></p>
+			<h3 class="help-text">session ID · pageview ID · sequence ID</h3>
+			<h2>Hexadecimal ID:</h2> <p id="hex-identifier">Not available in JavaScript</p>
+			<h2>Pageview ID-based bucketing:</h2> <p id="bucket-info">
+		</div>
+		<div id="identifier-btns"></div>
+	</body>
+</html>

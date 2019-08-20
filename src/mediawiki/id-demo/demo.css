@@ -1,0 +1,22 @@
+.number-buckets {
+  width: 300px;
+}
+body {
+  font-family: sans-serif;
+  font-size: 14px;
+  padding: 50px;
+}
+h1 {
+  font-size: 18px;
+}
+h2 {
+  font-size: 16px;
+}
+.help-text {
+  font-size: 12px;
+  color: gray;
+  font-weight: normal;
+}
+#hex-identifier {
+  color: #b32424;
+}
