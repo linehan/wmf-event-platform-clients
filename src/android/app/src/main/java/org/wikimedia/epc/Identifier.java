@@ -32,4 +32,18 @@ public class Identifier {
     public String asHex() {
         return this.asInteger().toString(16);
     }
+    public Integer inBucket(Integer buckets) {
+        if (buckets > 1) {
+            Double segment_length = Math.pow(2, 16) / buckets;
+            // determine which interval pageview_id falls into:
+            for (int i = 1; i <= buckets; i++) {
+                if (this.pageview_id < (segment_length * i)) {
+                    return i;
+                }
+            }
+            return -1;
+        } else {
+            return buckets;
+        }
+    }
 }
