@@ -18,11 +18,8 @@ public class MainActivity extends AppCompatActivity {
         this.updateTextViews();
     }
     public void updateTextViews() {
-        TextView stringIdentifier = findViewById(R.id.stringIdentifier);
-        stringIdentifier.setText(id.asString("·"));
-
-        TextView hexIdentifier = findViewById(R.id.hexIdentifier);
-        hexIdentifier.setText(id.asHex());
+        TextView idLabel = findViewById(R.id.identifier);
+        idLabel.setText(id.toHex());
 
         TextView numberOfBuckets = findViewById(R.id.numberOfBuckets);
         String bucketsInfo = (n_buckets > 1 ? n_buckets + " buckets" : n_buckets + " bucket");

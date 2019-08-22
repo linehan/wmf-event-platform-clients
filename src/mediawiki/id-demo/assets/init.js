@@ -20,7 +20,7 @@ $( function () {
       } );
 
   function updateIdentifierInfo() {
-    $( "#string-identifier" ).text(id.asString(separator = "·"));
+    $( "#hex-identifier" ).text(id.toHex());
     $( "#bucket-info" ).text(id.inBucket(numberOfBuckets.getValue()))
   }
 
