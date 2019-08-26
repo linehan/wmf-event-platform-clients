@@ -4,50 +4,66 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
+
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
     private Identifier id = new Identifier();
-    private Integer n_buckets = 1;
+    private int[] stats = {0, 0, 0, 0};
+    private int total = 0;
+    private int bucket = 0;
+    private double[] prob1 = {0.25, 0.25, 0.25, 0.25};
+    private double[] prob2 = {0.40, 0.10, 0.30, 0.20};
+
+    private void resetBucketingStats() {
+        this.stats = new int[]{0, 0, 0, 0}; // reset stats
+        this.total = 0;
+    }
+    private void updateBucketingStats() {
+        Switch bucketWeightsSwitch = findViewById(R.id.equalWeightsSwitch);
+        double[] probs = bucketWeightsSwitch.isChecked() ? prob1 : prob2;
+        this.bucket = Sampling.inBucket(id.randomComponent(), probs);
+        this.stats[this.bucket - 1]++; // update bucketing stats
+        this.total++; // update running total
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.updateBucketingStats();
         this.updateTextViews();
     }
+
     public void updateTextViews() {
-        TextView idLabel = findViewById(R.id.identifier);
-        idLabel.setText(id.toHex());
+        TextView idTV = findViewById(R.id.identifier);
+        idTV.setText(id.toHex());
 
-        TextView numberOfBuckets = findViewById(R.id.numberOfBuckets);
-        String bucketsInfo = (n_buckets > 1 ? n_buckets + " buckets" : n_buckets + " bucket");
-        numberOfBuckets.setText(bucketsInfo);
+        TextView bucketInfoTV = findViewById(R.id.bucketInfo);
+        bucketInfoTV.setText(String.format("%d", this.bucket));
 
-        TextView bucketInfo = findViewById(R.id.bucketInfo);
-        bucketInfo.setText(id.inBucket(n_buckets).toString());
+        TextView bucketStatsTV = findViewById(R.id.bucketingStats);
+        bucketStatsTV.setText(Arrays.toString(stats));
     }
+
     /** Called when the user taps the Step button */
     public void stepUp(View view) {
-        id.step();
+        this.id.step();
         this.updateTextViews();
     }
     /** Called when the user taps the Regenerate button */
     public void regenIdentifier(View view) {
-        id = new Identifier();
+        this.id = new Identifier();
+        this.updateBucketingStats();
         this.updateTextViews();
     }
-    public void increaseBuckets(View view) {
-        if (this.n_buckets <= 16) {
-            this.n_buckets++;
-            this.updateTextViews();
-        }
-    }
-    public void decreaseBuckets(View view) {
-        if (this.n_buckets > 1) {
-            this.n_buckets--;
-            this.updateTextViews();
-        }
+    /** Called when the user switches the bucket weights */
+    public void switchBucketWeights(View view) {
+        this.resetBucketingStats();
+        this.updateBucketingStats();
+        this.updateTextViews();
     }
 }
