@@ -12,11 +12,15 @@ class ViewController: UIViewController {
 
     //MARK: Properties
     @IBOutlet weak var identifierLabel: UILabel!
-    @IBOutlet weak var numberOfBucketsLabel: UILabel!
     @IBOutlet weak var bucketLabel: UILabel!
-    @IBOutlet weak var numberOfBucketsStepper: UIStepper!
+    @IBOutlet weak var equalWeightsSwitch: UISwitch!
+    @IBOutlet weak var bucketStatsLabel: UILabel!
+    @IBOutlet weak var bucketPropsLabel: UILabel!
 
     var id: Identifier = Identifier()
+    let prob1 = [0.25, 0.25, 0.25, 0.25];
+    let prob2 = [0.40, 0.10, 0.30, 0.20];
+    var stats: [Int] = [0, 0, 0, 0];
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +30,17 @@ class ViewController: UIViewController {
 
     func updateInfoLabels() {
         identifierLabel.text = id.toHex()
-        bucketLabel.text = String(id.inBucket(buckets: Int(numberOfBucketsStepper.value)))
+
+        let probs = equalWeightsSwitch.isOn ? prob1 : prob2
+        let b = Sampling.inBucket(rand: id.randomComponent(), weights: probs)
+        stats[b - 1] += 1
+        let total = Double(stats.reduce(0, +))
+
+        bucketLabel.text = String(b)
+        bucketStatsLabel.text = stats.description + String(format: " = %.0f", total)
+
+        let props: [String] = stats.map() { n in String(format: "%.2f%%", 100 * Double(n) / total) }
+        bucketPropsLabel.text = props.joined(separator: ", ")
     }
 
     //MARK: Actions
@@ -38,13 +52,9 @@ class ViewController: UIViewController {
         id = Identifier()
         updateInfoLabels()
     }
-    @IBAction func changeNumberOfBuckets(sender: UIStepper) {
-        let n_buckets: Int = Int(sender.value)
-        var str_buckets: String = "\(n_buckets) bucket"
-        if (n_buckets > 1) {
-            str_buckets += "s"
-        }
-        numberOfBucketsLabel.text = str_buckets
+    @IBAction func changeWeightsSettings(_ sender: UISwitch) {
+        // reset stats
+        stats = [0, 0, 0, 0];
         updateInfoLabels()
     }
 

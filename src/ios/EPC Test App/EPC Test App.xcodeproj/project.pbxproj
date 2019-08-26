@@ -18,6 +18,7 @@
 		982285B9230AEDC100091F37 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982285B8230AEDC100091F37 /* Identifier.swift */; };
 		982285BC230AEE8300091F37 /* StreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982285BA230AEE8200091F37 /* StreamManager.swift */; };
 		982285BD230AEE8300091F37 /* HTTPRequestBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982285BB230AEE8300091F37 /* HTTPRequestBuffer.swift */; };
+		988288B72314377F00A5F993 /* Sampling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988288B62314377F00A5F993 /* Sampling.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		982285B8230AEDC100091F37 /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
 		982285BA230AEE8200091F37 /* StreamManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamManager.swift; sourceTree = "<group>"; };
 		982285BB230AEE8300091F37 /* HTTPRequestBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestBuffer.swift; sourceTree = "<group>"; };
+		988288B62314377F00A5F993 /* Sampling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sampling.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 				982285BB230AEE8300091F37 /* HTTPRequestBuffer.swift */,
 				982285BA230AEE8200091F37 /* StreamManager.swift */,
 				982285B8230AEDC100091F37 /* Identifier.swift */,
+				988288B62314377F00A5F993 /* Sampling.swift */,
 			);
 			path = EventPlatformClient;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				988288B72314377F00A5F993 /* Sampling.swift in Sources */,
 				982285BC230AEE8300091F37 /* StreamManager.swift in Sources */,
 				982285BD230AEE8300091F37 /* HTTPRequestBuffer.swift in Sources */,
 				98228577230ADDD000091F37 /* ViewController.swift in Sources */,
