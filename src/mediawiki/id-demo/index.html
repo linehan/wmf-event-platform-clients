@@ -22,12 +22,19 @@
 		<script src="assets/init.js"></script>
 	</head>
 	<body>
-		<h1>Event Platform Client - ID demo</h1>
-		<div id="bucketing-settings"></div>
-		<div id="identifier-info">
-			<h2>Hexadecimal form:</h2> <p id="hex-identifier"></p>
-			<h2>Bucketing:</h2> <p id="bucket-info">
+    <div id="wrapper">
+  		<h1>Event Platform Client - ID demo</h1>
+  		<h2>Bucketing settings:</h2>
+      <p>The identifier will be placed into one of four buckets, either with equal weights or unequal. If unequal (preset) weights are used, we will expect the proportion of identifiers in each bucket to be approximately 40%, 10%, 30%, 20%. Use equal weights?</p>
+  		<div id="bucketing-settings"></div>
+  		<div id="identifier-info">
+  			<h2>Hexadecimal form:</h2> <p id="hex-identifier"></p>
+  			<h2>Bucket:</h2> <p id="bucket-info">
+  		</div>
+  		<div id="identifier-btns"></div>
+  		<hr>
+  		<h2>Bucketing statistics:</h2>
+  		<div id="bucketing-stats">
 		</div>
-		<div id="identifier-btns"></div>
 	</body>
 </html>
