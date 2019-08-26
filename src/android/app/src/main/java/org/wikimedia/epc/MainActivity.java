@@ -13,21 +13,18 @@ public class MainActivity extends AppCompatActivity {
 
     private Identifier id = new Identifier();
     private int[] stats = {0, 0, 0, 0};
-    private int total = 0;
     private int bucket = 0;
     private double[] prob1 = {0.25, 0.25, 0.25, 0.25};
     private double[] prob2 = {0.40, 0.10, 0.30, 0.20};
 
     private void resetBucketingStats() {
         this.stats = new int[]{0, 0, 0, 0}; // reset stats
-        this.total = 0;
     }
     private void updateBucketingStats() {
         Switch bucketWeightsSwitch = findViewById(R.id.equalWeightsSwitch);
         double[] probs = bucketWeightsSwitch.isChecked() ? prob1 : prob2;
         this.bucket = Sampling.inBucket(id.randomComponent(), probs);
         this.stats[this.bucket - 1]++; // update bucketing stats
-        this.total++; // update running total
     }
 
     @Override
