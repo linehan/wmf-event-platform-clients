@@ -18,12 +18,14 @@
 
 		<!-- Demo app custom -->
 		<link rel="stylesheet" href="demo.css">
+		<script src="assets/sampling.js"></script>
 		<script src="assets/identifier.js"></script>
 		<script src="assets/init.js"></script>
 	</head>
 	<body>
     <div id="wrapper">
-  		<h1>Event Platform Client - ID demo</h1>
+  		<h1>EPC-ID: Identifiers demo</h1>
+  		<p>This demo demonstrates ID generation and ID-based sampling, as specified in the <a href="https://docs.google.com/document/d/100B4c1GqHHCAGnWLbDrgMQIJzxNI8vuf7jEMKG7DKeg/edit">EPC-ID specification</a>.</p>
   		<h2>Bucketing settings:</h2>
       <p>The identifier will be placed into one of four buckets, either with equal weights or unequal. If unequal (preset) weights are used, we will expect the proportion of identifiers in each bucket to be approximately 40%, 10%, 30%, 20%. Use equal weights?</p>
   		<div id="bucketing-settings"></div>

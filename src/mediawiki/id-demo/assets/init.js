@@ -2,8 +2,8 @@ const summation = (accumulator, currentValue) => accumulator + currentValue;
 
 $( function () {
 
-  var id = new Identifier()
-  var stats = [1, 0, 0, 0];
+  var id = new Identifier();
+  var stats = [0, 0, 0, 0];
   var prob1 = [0.25, 0.25, 0.25, 0.25];
   var prob2 = [0.4, 0.1, 0.3, 0.2];
   var probs = prob1;
@@ -24,11 +24,15 @@ $( function () {
       } );
 
   function updateIdentifierInfo() {
-    $( "#hex-identifier" ).text(id.toHex());
-    $( "#bucket-info" ).text(id.inBucket(probs))
+    $( "#hex-identifier" ).text(id.hex);
+    $( "#bucket-info" ).text(Sampling.inBucket(id.randomComponent(), probs))
   }
   function resetBucketStats() {
     stats = [0, 0, 0, 0]; // new Array(4).fill(0);
+    let b = Sampling.inBucket(id.randomComponent(), probs) - 1
+    stats[b]++;
+    updateIdentifierInfo();
+    updateBucketStatsTable();
   }
   function updateBucketStatsTable() {
     let header_row = "<th align='left'>Bucket</th>";
@@ -50,10 +54,6 @@ $( function () {
   equalBucketWeights.on( 'change', function ( item ) {
     probs = item ? prob1 : prob2;
     resetBucketStats();
-    let b = id.inBucket(probs) - 1
-    stats[b]++;
-    updateIdentifierInfo();
-    updateBucketStatsTable();
   } )
 
   stepUpButton.on( 'click', function ( item ) {
@@ -63,7 +63,7 @@ $( function () {
 
   regenIdentifierButton.on( 'click', function ( item ) {
     id = new Identifier();
-    let b = id.inBucket(probs) - 1
+    let b = Sampling.inBucket(id.randomComponent(), probs) - 1
     stats[b]++;
     updateIdentifierInfo();
     updateBucketStatsTable();
@@ -76,6 +76,5 @@ $( function () {
     regenIdentifierButton.$element
 	);
 
-  updateIdentifierInfo();
-  updateBucketStatsTable();
+  resetBucketStats();
 } );
