@@ -1,7 +1,8 @@
 import Foundation
 
 struct ExampleEvent: Codable {
-    let msg: String
+    let id: String
+    let event: String
 }
 
 class HTTPRequestBuffer {
@@ -44,9 +45,9 @@ class HTTPRequestBuffer {
             request.httpBody = data
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             URLSession.shared.dataTask(with: request) { _, response, _ in
-                /* if let httpResponse = response as? HTTPURLResponse {
+                if let httpResponse = response as? HTTPURLResponse {
                     print("response: \(httpResponse.statusCode)")
-                } */
+                }
             }.resume()
         } else {
             self.buffer.append(event)

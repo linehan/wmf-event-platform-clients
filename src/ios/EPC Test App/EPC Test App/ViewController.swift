@@ -46,19 +46,19 @@ class ViewController: UIViewController {
         bucketPropsLabel.text = props.joined(separator: ", ")
     }
 
-    func postExampleEvent() {
-        buffer.post("http://127.0.0.1:8000/log", ExampleEvent(msg: id.toHex()))
+    func postExampleEvent(event: String) {
+        buffer.post("https://pai-test.wmflabs.org/log", ExampleEvent(id: id.toHex(), event: event))
     }
 
     //MARK: Actions
     @IBAction func stepUp(_ sender: Any) {
         id.step()
-        postExampleEvent()
+        postExampleEvent(event: "step")
         updateInfoLabels()
     }
     @IBAction func regenIdentifier(_ sender: Any) {
         id = Identifier()
-        postExampleEvent()
+        postExampleEvent(event: "regen")
         updateInfoLabels()
     }
     @IBAction func changeWeightsSettings(_ sender: UISwitch) {
