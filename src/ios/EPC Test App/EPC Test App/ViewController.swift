@@ -16,11 +16,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var equalWeightsSwitch: UISwitch!
     @IBOutlet weak var bucketStatsLabel: UILabel!
     @IBOutlet weak var bucketPropsLabel: UILabel!
+    @IBOutlet weak var pauseButton: UIButton!
+    @IBOutlet weak var unpauseButton: UIButton!
 
     var id: Identifier = Identifier()
     let prob1 = [0.25, 0.25, 0.25, 0.25];
     let prob2 = [0.40, 0.10, 0.30, 0.20];
     var stats: [Int] = [0, 0, 0, 0];
+    var buffer = HTTPRequestBuffer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,19 +46,38 @@ class ViewController: UIViewController {
         bucketPropsLabel.text = props.joined(separator: ", ")
     }
 
+    func postExampleEvent() {
+        buffer.post("http://127.0.0.1:8000/log", ExampleEvent(msg: id.toHex()))
+    }
+
     //MARK: Actions
     @IBAction func stepUp(_ sender: Any) {
         id.step()
+        postExampleEvent()
         updateInfoLabels()
     }
     @IBAction func regenIdentifier(_ sender: Any) {
         id = Identifier()
+        postExampleEvent()
         updateInfoLabels()
     }
     @IBAction func changeWeightsSettings(_ sender: UISwitch) {
         // reset stats
         stats = [0, 0, 0, 0];
         updateInfoLabels()
+    }
+    @IBAction func flushBuffer(_ sender: Any) {
+        buffer.flush()
+    }
+    @IBAction func pauseBuffer(_ sender: Any) {
+        buffer.pause()
+        pauseButton.isEnabled = false
+        unpauseButton.isEnabled = true
+    }
+    @IBAction func unpauseBuffer(_ sender: Any) {
+        buffer.unpause()
+        pauseButton.isEnabled = true
+        unpauseButton.isEnabled = false
     }
 
 }

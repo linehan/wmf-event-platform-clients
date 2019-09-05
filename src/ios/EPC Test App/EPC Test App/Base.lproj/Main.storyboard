@@ -108,6 +108,33 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Nn-Ma-PBB">
+                                <rect key="frame" x="49" y="614" width="88" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Flush buffer"/>
+                                <connections>
+                                    <action selector="flushBuffer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hDf-5K-VUQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tfo-G6-Bt9">
+                                <rect key="frame" x="49" y="654" width="93" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Pause buffer"/>
+                                <connections>
+                                    <action selector="pauseBuffer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="maA-Qk-WOk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Nf-4v-6gU">
+                                <rect key="frame" x="49" y="694" width="113" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Unpause buffer"/>
+                                <connections>
+                                    <action selector="unpauseBuffer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Gji-SF-XVF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -118,6 +145,8 @@
                         <outlet property="bucketStatsLabel" destination="Tal-Z3-9Id" id="Ey6-u7-QM3"/>
                         <outlet property="equalWeightsSwitch" destination="1Ko-Wg-ENd" id="YfX-8q-Zsk"/>
                         <outlet property="identifierLabel" destination="CXP-cW-D1S" id="IAK-iz-9DY"/>
+                        <outlet property="pauseButton" destination="Tfo-G6-Bt9" id="SNM-zg-OMY"/>
+                        <outlet property="unpauseButton" destination="2Nf-4v-6gU" id="TTx-Jj-JCN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
