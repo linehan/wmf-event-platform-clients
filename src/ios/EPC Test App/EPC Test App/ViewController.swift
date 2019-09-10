@@ -24,6 +24,7 @@ class ViewController: UIViewController {
     let prob2 = [0.40, 0.10, 0.30, 0.20];
     var stats: [Int] = [0, 0, 0, 0];
     var buffer = HTTPRequestBuffer()
+    var stream_mgr = StreamManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -1,7 +1,11 @@
-struct StreamConfig {
-    var fields: [String:Any]
-    init(_ stream_fields: [String:Any]) {
-        fields = stream_fields
+
+public struct StreamConfig {
+    private var streams: [String: [String: Any]]
+    public static func endpointURI() -> String {
+        return "https://pai-test.wmflabs.org/streams"
+    }
+    public init(_ streams: [String: [String: Any]]) {
+        self.streams = streams
     }
 }
 
@@ -9,28 +13,30 @@ import Foundation
 
 struct StreamManager {
 
-    var config: [String: StreamConfig] = [:]
+    var configs: StreamConfig? = nil
     let client_token: String = StreamManager.getClientToken()
     let session_token: String = StreamManager.getSessionToken()
-    var stream_token: [String: String] = [:]
-    var stream_token_refresh_count: [String: Int] = [:]
 
-    private func loadStreamConfig() -> [String: StreamConfig] {
-        let sampleStringConfig = [
-            "foo": StreamConfig([
-                "schema": "foo",
-                "sampling_rate": 0.5
-            ]),
-            "bar": StreamConfig([
-                "schema": "bar",
-                "sampling_rate": 0.5
-            ])
-        ]
-        return sampleStringConfig
-    }
-
-    func tokenInSample(stream_name: String) -> Bool {
-        return true
+    private func loadStreamConfig() -> Void {
+        print("attempting to load stream configs")
+        let task = URLSession.shared.dataTask(with: URL(string: StreamConfig.endpointURI())!) {
+            (responseData, response, _) in
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 || httpResponse.statusCode == 304 {
+                    let json = try? JSONSerialization.jsonObject(with: responseData!, options: []) as? [String: [String: Any]]
+                    if json != nil {
+                        print(json!.description)
+                        /* TODOs:
+                         * - set self.configs to StreamConfig(json!); see: https://developer.apple.com/documentation/foundation/url_loading_system/fetching_website_data_into_memory
+                         * - add stream config cascading
+                         */
+                    }
+                } else {
+                    print("\(httpResponse.statusCode)")
+                }
+            }
+        }
+        task.resume()
     }
 
     static private func getClientToken() -> String {
@@ -42,7 +48,7 @@ struct StreamManager {
     }
 
     init() {
-        self.config = self.loadStreamConfig()
+        self.loadStreamConfig()
     }
 
 }

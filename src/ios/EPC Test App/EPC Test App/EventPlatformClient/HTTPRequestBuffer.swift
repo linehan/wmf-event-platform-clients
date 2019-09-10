@@ -20,8 +20,10 @@ class HTTPRequestBuffer {
         self.post(url, jsonData)
     }
     public func post(_ url: String, _ jsonData: Data) -> Void {
-        let json = String(data: jsonData, encoding: String.Encoding.utf8)!
-        self.post(url, json)
+        let json = String(data: jsonData, encoding: String.Encoding.utf8)
+        if json != nil {
+            self.post(url, json!)
+        }
     }
     public func post(_ url: String, _ data: String) -> Void {
         if self.buffer.count < self.capacity {
@@ -39,16 +41,19 @@ class HTTPRequestBuffer {
 
     public func send(_ event: (url: String, data: String)) -> Void {
         if self.enabled {
-            var request = URLRequest(url: URL(string: event.url)!)
-            let data = event.data.data(using: String.Encoding.utf8)
-            request.httpMethod = "POST"
-            request.httpBody = data
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            URLSession.shared.dataTask(with: request) { _, response, _ in
-                if let httpResponse = response as? HTTPURLResponse {
-                    print("response: \(httpResponse.statusCode)")
-                }
-            }.resume()
+            let url = URL(string: event.url)
+            if url != nil {
+                var request = URLRequest(url: url!)
+                let data = event.data.data(using: String.Encoding.utf8)
+                request.httpMethod = "POST"
+                request.httpBody = data
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                URLSession.shared.dataTask(with: request) { _, response, _ in
+                    if let httpResponse = response as? HTTPURLResponse {
+                        print("response: \(httpResponse.statusCode)")
+                    }
+                }.resume()
+            }
         } else {
             self.buffer.append(event)
         }
